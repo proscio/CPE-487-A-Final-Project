@@ -5,7 +5,7 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
 
 * The **_dac_if_** module converts 16-bit parallel stereo data to the serial format required by the digital to analog converter.
   * This module is unmodified from Lab 5
-  * Similarly to its usage in the base code, the topmost module *Tone
+  * Similarly to its usage in the base code, the topmost module *TonePlayer* sends 16-bit parallel stereo data, which it converts it to the serial format required by the digital to analog converter.
 
 * The **_tone_** module generates a set of signed waves at a sampling rate of 48.8 KHz.
   * This module contains mostly the same code as the *tone* module used in the final state of Lab 5.
