@@ -42,6 +42,7 @@ ARCHITECTURE Behavioral OF TonePlayer IS
 	
 	
 	SIGNAL tcount : unsigned (19 DOWNTO 0) := (OTHERS => '0'); -- timing counter
+	-- Below is our new data signals, used for each of the notes (switches) and then added togther to create our final data sting. 
 	SIGNAL data_L, data_R,data0,data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14: SIGNED (15 DOWNTO 0); -- 16-bit signed audio data
 	SIGNAL dac_load_L, dac_load_R : STD_LOGIC; -- timing pulses to load DAC shift reg.
 	SIGNAL sclk, audio_CLK : STD_LOGIC;
@@ -83,11 +84,13 @@ BEGIN
 		SDATA => dac_SDIN 
 		);
 
+     -- Below is a port map for each of our 15 tone instances. The pitch for each tone is determibed based on 1.345 * (the frequency of that note)
+     -- rounded to the closest intiger value.
     t0 : tone
 	PORT MAP(
-	    BTNU => BTNU,
-	    SWITCH => SW(0),
-	    BTNC => BTNC,
+	    BTNU => BTNU, -- Button for square wave
+	    SWITCH => SW(0), --Switch bit for on or off
+	    BTNC => BTNC, -- Button for Triangluar Wave
 		clk => audio_clk, -- instance a tone module
 		pitch => to_unsigned(704,14), -- use pitch to modulate tone
 		data => Data0
@@ -121,12 +124,12 @@ BEGIN
 		);
 	t4 : tone
 	PORT MAP(
-	    BTNU => BTNU,
-	    SWITCH => SW(4),
-	    BTNC => BTNC,
+	    BTNU => BTNU, 
+	    SWITCH => SW(4), 
+	    BTNC => BTNC, 
 		clk => audio_clk, -- instance a tone module
 		pitch => to_unsigned(1054,14), -- use pitch to modulate tone
-		data => Data4
+		data => Data4 
 		);
 	t5 : tone
 	PORT MAP(
@@ -224,7 +227,8 @@ BEGIN
 		pitch => to_unsigned(2816,14), -- use pitch to modulate tone
 		data => Data14
 		);
-		
+    -- Below is the sum of all of our data# signals for each note (Switch) they are added togther to create
+    -- a single "frequency" for data and then passd into the left and right channels. 
     data_L <= data0+data1+data2+data3+data4+data5+data6+data7+data8+data9+data10+data11+data12+data13+data14;
     data_R <= data_L; -- duplicate data on right channel
     
