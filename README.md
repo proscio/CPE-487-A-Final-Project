@@ -23,3 +23,28 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
   * This module creates 15 instances of *tone*, each corresponding to a particular pitch (A,B,C,D,E,F,or G) within the two-octave range.
   * The output of these modules is added together and sent to *dac_if*.
   * This module also duplicates the audio output from the left channel to the right channel.
+
+## Parts Needed
+* This Project requires the speaker module attached to the "JA" port on the Nexy 4 DDR Board.
+
+## Expected Behavior:
+* When implemented correctly, the program should be able to play multiple notes as determined by the switch positions.
+* The Notes will be played when a wave button is sellected:
+  * BTNU: Generates a Square Wave
+  * BTNC: Generates a Triangular Wave
+  * BTND: Generates a Sawtooth Wave
+## Steps to Get The Project Running:
+### Step 1: Load all of the files into vivado
+* Create a new project named Tone Player.
+* Inside the project:
+  * Add **TonePlayer.vhd** , **dac_if.vhd** , and **tone.vhd** to the sources
+  * Add **siren.xdc** as a constraint
+  * Select the  _Nexys A7 100 T__ as the board type
+### Step 2: Build the Project
+* Run Synthesis
+* Run Implementation
+* Run Generate Bitstream
+### Step 3: Prgram device
+* In the hardware manager:
+  * Selett _Open Target_ and choose the attached board as the target
+  * Choose _Program Device_ and select the appropriate bitstream file
