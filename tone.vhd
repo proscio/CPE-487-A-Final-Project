@@ -7,8 +7,9 @@ USE IEEE.NUMERIC_STD.ALL;
 ENTITY tone IS
 	PORT (
 	    SWITCH : IN STD_LOGIC;
-	    BTNU: IN STD_LOGIC; -- button for swuare waves
-	    BTNC: IN STD_LOGIC; -- added button for triangular wave
+	    BTND : IN STD_LOGIC;
+	    BTNU: IN STD_LOGIC;
+	    BTNC: IN STD_LOGIC;
 		clk : IN STD_LOGIC; -- 48.8 kHz audio sampling clock
 		pitch : IN UNSIGNED (13 DOWNTO 0); -- frequency (in units of 0.745 Hz)
 	    data : OUT SIGNED (15 DOWNTO 0)); -- signed wave out
@@ -35,9 +36,7 @@ BEGIN
 	index <= signed ("00" & count (13 DOWNTO 0)); -- 14-bit index into the current phase
 	-- This select statement converts an unsigned 16-bit sawtooth that ranges from 65,535
 	-- into a signed 12-bit triangle wave that ranges from -16,383 to +16,383
-
-
-     -- Below is our two waves: 
+	
 	   WITH quad SELECT
 	   square <=  "0011111111111111" WHEN "00", -- 1st quadrant
                 "0011111111111111" WHEN "01", -- 2nd quadrant
@@ -56,7 +55,9 @@ BEGIN
                 data <= square;
             ELSIF BTNC = '1' and SWITCH = '1' THEN
                 data <= triangle;
-            ELSE 
+            ELSIF BTND = '1' and SWITCH = '1' THEN
+                data <= signed(count);
+            ELSE
                 data <= "0000000000000000";
             END IF;
         END PROCESS;
