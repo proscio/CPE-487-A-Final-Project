@@ -7,6 +7,7 @@ ENTITY TonePlayer IS
 		clk_50MHz : IN STD_LOGIC; -- system clock (50 MHz)
 		BTNU : IN STD_LOGIC; -- activates square wave
 		BTNC : IN STD_LOGIC; -- activates triangle wave
+		BTND : IN STD_LOGIC; -- activates sawtooth wave
 		SW : IN std_logic_vector (14 downto 0);
 		dac_MCLK : OUT STD_LOGIC; -- outputs to PMODI2L DAC
 		dac_LRCK : OUT STD_LOGIC;
@@ -34,6 +35,7 @@ ARCHITECTURE Behavioral OF TonePlayer IS
 		    SWITCH : IN STD_LOGIC;
 		    BTNU : IN STD_LOGIC;
 		    BTNC : IN STD_LOGIC;
+		    BTND : IN STD_LOGIC;
 			clk : IN STD_LOGIC;
 			pitch : IN UNSIGNED (13 DOWNTO 0);
 			data : OUT SIGNED (15 DOWNTO 0)
@@ -42,7 +44,6 @@ ARCHITECTURE Behavioral OF TonePlayer IS
 	
 	
 	SIGNAL tcount : unsigned (19 DOWNTO 0) := (OTHERS => '0'); -- timing counter
-	-- Below is our new data signals, used for each of the notes (switches) and then added togther to create our final data sting. 
 	SIGNAL data_L, data_R,data0,data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14: SIGNED (15 DOWNTO 0); -- 16-bit signed audio data
 	SIGNAL dac_load_L, dac_load_R : STD_LOGIC; -- timing pulses to load DAC shift reg.
 	SIGNAL sclk, audio_CLK : STD_LOGIC;
@@ -84,19 +85,19 @@ BEGIN
 		SDATA => dac_SDIN 
 		);
 
-     -- Below is a port map for each of our 15 tone instances. The pitch for each tone is determibed based on 1.345 * (the frequency of that note)
-     -- rounded to the closest intiger value.
     t0 : tone
 	PORT MAP(
-	    BTNU => BTNU, -- Button for square wave
-	    SWITCH => SW(0), --Switch bit for on or off
-	    BTNC => BTNC, -- Button for Triangluar Wave
+	    BTNU => BTNU,
+	    BTND => BTND,
+	    SWITCH => SW(0),
+	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
 		pitch => to_unsigned(704,14), -- use pitch to modulate tone
 		data => Data0
 		);
 	t1 : tone
 	PORT MAP(
+	    BTND => BTND,
 	    BTNU => BTNU,
 	    SWITCH => SW(1),
 	    BTNC => BTNC,
@@ -107,6 +108,7 @@ BEGIN
 	t2 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(2),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -116,6 +118,7 @@ BEGIN
 	t3 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(3),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -124,16 +127,18 @@ BEGIN
 		);
 	t4 : tone
 	PORT MAP(
-	    BTNU => BTNU, 
-	    SWITCH => SW(4), 
-	    BTNC => BTNC, 
+	    BTNU => BTNU,
+	    BTND => BTND,
+	    SWITCH => SW(4),
+	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
 		pitch => to_unsigned(1054,14), -- use pitch to modulate tone
-		data => Data4 
+		data => Data4
 		);
 	t5 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(5),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -143,6 +148,7 @@ BEGIN
 	t6 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(6),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -152,6 +158,7 @@ BEGIN
 	t7 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(7),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -161,6 +168,7 @@ BEGIN
 	t8 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(8),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -171,6 +179,7 @@ BEGIN
 	t9 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(9),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -181,6 +190,7 @@ BEGIN
 	t10 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(10),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -191,6 +201,7 @@ BEGIN
 	t11 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(11),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -201,6 +212,7 @@ BEGIN
 	t12 : tone
 	PORT MAP(
 	    BTNU => BTNU,
+	    BTND => BTND,
 	    SWITCH => SW(12),
 	    BTNC => BTNC,
 		clk => audio_clk, -- instance a tone module
@@ -210,6 +222,7 @@ BEGIN
 		
 	t13 : tone
 	PORT MAP(
+	    BTND => BTND,
 	    BTNU => BTNU,
 	    SWITCH => SW(13),
 	    BTNC => BTNC,
@@ -220,6 +233,7 @@ BEGIN
 		
 	t14 : tone
 	PORT MAP(
+	    BTND => BTND,
 	    BTNU => BTNU,
 	    SWITCH => SW(14),
 	    BTNC => BTNC,
@@ -227,8 +241,7 @@ BEGIN
 		pitch => to_unsigned(2816,14), -- use pitch to modulate tone
 		data => Data14
 		);
-    -- Below is the sum of all of our data# signals for each note (Switch) they are added togther to create
-    -- a single "frequency" for data and then passd into the left and right channels. 
+		
     data_L <= data0+data1+data2+data3+data4+data5+data6+data7+data8+data9+data10+data11+data12+data13+data14;
     data_R <= data_L; -- duplicate data on right channel
     
