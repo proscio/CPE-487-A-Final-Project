@@ -16,6 +16,7 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
   * The frequency with which it traverses the whole 16-bit count range is equal to 0.745*pitch.
   * The signals quad and index are used to generate a triangle wave.
   * quad is also used to generate a square wave, where each "quadrant" alternates the output at the selected frequency.
+ ![finalchart](https://github.com/proscio/CPE-487-A-Final-Project/assets/108437018/b7dafea1-a372-44ad-9ccf-f17e873689c6)
   * The wave that is assigned to the data output is determined by the button press input recieved by TonePlayer, as well as whether or not the corresponding switch for the instance is active.
    
 * The **_TonePlayer_** module is the top level.
