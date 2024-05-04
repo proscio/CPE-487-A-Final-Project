@@ -54,6 +54,7 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
 Nothing was changed within this file
 ## tone.vhd
 Added with select statements, using quad(signal) to determine what kind of wave we will need.
+ '''vhdl
  WITH quad SELECT
 	   square <=  "0011111111111111" WHEN "00", -- 1st quadrant
                "0011111111111111" WHEN "01", -- 2nd quadrant
