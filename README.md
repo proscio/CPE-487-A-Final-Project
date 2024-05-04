@@ -76,4 +76,13 @@ ARCHITECTURE Behavioral OF tone IS
                 16383 - index WHEN "01", -- 2nd quadrant
                 0 - index WHEN "10", -- 3rd quadrant
                 index - 16383 WHEN OTHERS; -- 4th quadrant
-                
+```
+Some key points to make on the original file created for this project, TonePlayer.vhd, are as follows
+
+## TonePlayer.vhd
+* VHDL code generates different waveforms and controls a DAC for the output audio.
+* Supports different types of waveforms using the on board button inputs(BTNU, BTNC, etc).
+* Switches or SW are used to activate the different tones.
+	* 'pitch' is used as a parameter for each tone, which is set to different default values, resulting in a frequency.
+* Utilizes DAC interface and the different tone generators to create the audio playback by combining them.
+	* Specifically data_L and data_R, which take the 15 tone components and summed them together. 
