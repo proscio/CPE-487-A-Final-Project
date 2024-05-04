@@ -49,3 +49,20 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
 * In the hardware manager:
   * Selett _Open Target_ and choose the attached board as the target
   * Choose _Program Device_ and select the appropriate bitstream file
+##Modifications to code:
+## dac_if.vhd
+Nothing was changed within this file
+## tone.vhd
+Added with select statements, using quad(signal) to determine what kind of wave we will need.
+ WITH quad SELECT
+	   square <=  "0011111111111111" WHEN "00", -- 1st quadrant
+               "0011111111111111" WHEN "01", -- 2nd quadrant
+               "1100000000000001" WHEN "10", -- 3rd quadrant
+               "1100000000000001" WHEN OTHERS; -- 4th quadrant
+
+  WITH quad SELECT
+        triangle <= index WHEN "00", -- 1st quadrant
+                16383 - index WHEN "01", -- 2nd quadrant
+                0 - index WHEN "10", -- 3rd quadrant
+                index - 16383 WHEN OTHERS; -- 4th quadrant
+                
