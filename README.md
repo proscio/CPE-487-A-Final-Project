@@ -54,7 +54,17 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
 Nothing was changed within this file
 ## tone.vhd
 Added with select statements, using quad(signal) to determine what kind of wave we will need.
- '''vhdl
+ ```vhdl
+
+ARCHITECTURE Behavioral OF tone IS
+	SIGNAL count : unsigned (15 DOWNTO 0); -- represents current phase of waveform
+	SIGNAL quad : std_logic_vector (1 DOWNTO 0); -- current quadrant of phase
+	SIGNAL index : signed (15 DOWNTO 0); -- index into current quadrant
+	SIGNAL square: signed (15 DOWNTO 0);
+	SIGNAL triangle: signed (15 DOWNTO 0);
+.
+.
+.
  WITH quad SELECT
 	   square <=  "0011111111111111" WHEN "00", -- 1st quadrant
                "0011111111111111" WHEN "01", -- 2nd quadrant
