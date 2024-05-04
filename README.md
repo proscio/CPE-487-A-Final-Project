@@ -25,7 +25,7 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
   * This module also duplicates the audio output from the left channel to the right channel.
 
 ## Parts Needed
-* This Project requires the speaker module attached to the "JA" port on the Nexy 4 DDR Board.
+* This Project requires the PMOD I2S2 DACattached to the "JA" port on the Nexys A7 board, as well as an device that uses AUX to output audio.
 
 ## Expected Behavior:
 * When implemented correctly, the program should be able to play multiple notes as determined by the switch positions.
