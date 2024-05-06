@@ -45,11 +45,11 @@ Created using base code from CPE 487 [Lab 5](https://github.com/byett/dsd/tree/C
 * Run Synthesis
 * Run Implementation
 * Run Generate Bitstream
-### Step 3: Prgram device
+### Step 3: Program device
 * In the hardware manager:
   * Selett _Open Target_ and choose the attached board as the target
   * Choose _Program Device_ and select the appropriate bitstream file
-##Modifications to code:
+# Modifications to our code:
 ## dac_if.vhd
 Nothing was changed within this file
 ## tone.vhd
